@@ -85,7 +85,7 @@ class ManagerWrapper:
             except OSError:
                 break
         os.close(fd)
-        self.send_alert("process_exited", {"program": prog_name, "pid": pid})
+        # self.send_alert("process_exited", {"program": prog_name, "pid": pid})
         if pid not in self._exited_pids:
             self._exited_pids.add(pid)
             self.send_alert("process_exited", {"program": prog_name, "pid": pid})

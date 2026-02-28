@@ -304,3 +304,85 @@ Même sans autostart :
 # TaskMaster implements an external alerting mechanism to report important supervision events.
 
 # Alerts are written to:
+
+/*
+skMaster git:(master) ✗ ./bonus/run_taskmaster_bonus.sh start
+🔹 Starting TaskMaster daemon...
+[TaskMaster] Daemon started (PID=73579)
+➜  TaskMaster git:(master) ✗ python3 bonus/client.py status          
+fast_ok RUNNING 1/1
+slow_start RUNNING 1/1
+crash_loop RUNNING 2/2
+manual_only RUNNING 1/1
+multi_proc RUNNING 3/3
+➜  TaskMaster git:(master) ✗ python3 bonus/client.py status
+fast_ok RUNNING 1/1
+slow_start RUNNING 0/1
+crash_loop RUNNING 0/2
+manual_only RUNNING 1/1
+multi_proc RUNNING 3/3
+➜  TaskMaster git:(master) ✗ python3 bonus/client.py status       
+fast_ok RUNNING 0/1
+slow_start RUNNING 0/1
+crash_loop RUNNING 0/2
+manual_only RUNNING 1/1
+multi_proc RUNNING 3/3
+➜  TaskMaster git:(master) ✗ python3 bonus/client.py status crash_loop
+fast_ok RUNNING 0/1
+slow_start RUNNING 0/1
+crash_loop RUNNING 0/2
+manual_only RUNNING 0/1
+multi_proc RUNNING 0/3
+➜  TaskMaster git:(master) ✗ python3 bonus/client.py start crash_loop
+OK started crash_loop
+➜  TaskMaster git:(master) ✗ python3 bonus/client.py status           
+fast_ok RUNNING 0/1
+slow_start RUNNING 0/1
+crash_loop RUNNING 0/2
+manual_only RUNNING 0/1
+multi_proc RUNNING 0/3
+➜  TaskMaster git:(master) ✗ python3 bonus/client.py start manual_only
+OK started manual_only
+➜  TaskMaster git:(master) ✗ python3 bonus/client.py stop manual_only
+OK stopped manual_only
+➜  TaskMaster git:(master) ✗ python3 bonus/client.py stop             
+ERR usage: stop <program>
+➜  TaskMaster git:(master) ✗ ./bonus/run_taskmaster_bonus.sh stop     
+[TaskMaster] Stopping daemon (PID=73579)...
+[TaskMaster] Daemon stopped
+➜  TaskMaster git:(master) ✗ clear
+
+➜  TaskMaster git:(master) ✗ ./bonus/run_taskmaster_bonus.sh start    
+🔹 Starting TaskMaster daemon...
+[TaskMaster] Daemon started (PID=73833)
+➜  TaskMaster git:(master) ✗ python3 bonus/client.py status           
+fast_ok RUNNING 0/1
+slow_start RUNNING 0/1
+crash_loop RUNNING 0/2
+manual_only RUNNING 1/1
+multi_proc RUNNING 3/3
+➜  TaskMaster git:(master) ✗ python3 bonus/client.py start crash_loop 
+OK started crash_loop
+➜  TaskMaster git:(master) ✗ python3 bonus/client.py stop crash_loop  
+OK stopped crash_loop
+➜  TaskMaster git:(master) ✗ python3 bonus/client.py status          
+fast_ok RUNNING 0/1
+slow_start RUNNING 0/1
+crash_loop RUNNING 0/2
+manual_only RUNNING 0/1
+multi_proc RUNNING 0/3
+➜  TaskMaster git:(master) ✗ python3 bonus/client.py start multi_proc
+OK started multi_proc
+➜  TaskMaster git:(master) ✗ python3 bonus/client.py status          
+fast_ok RUNNING 0/1
+slow_start RUNNING 0/1
+crash_loop RUNNING 0/2
+manual_only RUNNING 0/1
+multi_proc RUNNING 3/3
+➜  TaskMaster git:(master) ✗ python3 bonus/client.py stop multi_proc 
+OK stopped multi_proc
+➜  TaskMaster git:(master) ✗ ./bonus/run_taskmaster_bonus.sh stop     
+[TaskMaster] Stopping daemon (PID=73833)...
+[TaskMaster] Daemon stopped
+➜  TaskMaster git:(master) ✗ 
+*/
