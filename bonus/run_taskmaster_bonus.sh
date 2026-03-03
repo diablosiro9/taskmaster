@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DAEMON="bonus/daemon.py"
-CONFIG_FILE="example_config.yaml"
+CONFIG_FILE="bonus.yaml"
 PID_FILE="/tmp/taskmaster_daemon.pid"
 LOCK_FILE="/tmp/taskmaster_daemon.lock"
 
