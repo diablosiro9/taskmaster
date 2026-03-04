@@ -4,6 +4,7 @@ class ProgramConfig:
     def __init__(
         self,
         name: str,
+        user: str,
         cmd: str,
         numprocs: int = 1,
         autostart: bool = False,
@@ -20,6 +21,7 @@ class ProgramConfig:
         umask: Optional[int] = None,
     ):
         self.name = name
+        self.user = user
         self.cmd = cmd
         self.numprocs = numprocs
         self.autostart = autostart

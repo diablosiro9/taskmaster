@@ -15,6 +15,7 @@ class ConfigLoader:
         for name, cfg in data.get("programs", {}).items():
             program_cfg = ProgramConfig(
                 name=name,
+                user=cfg["user"],
                 cmd=cfg["cmd"],
                 numprocs=cfg.get("numprocs", 1),
                 autostart=cfg.get("autostart", False),
