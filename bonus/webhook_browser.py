@@ -48,7 +48,10 @@ class WebhookHandler(BaseHTTPRequestHandler):
             cls = "start" if "started" in event else "stop" if "stopped" in event else "exit" if "exited" in event else ""
             html += f"<li class='{cls}'>{json.dumps(a)}</li>"
         html += "</ul></body></html>"
-        self.wfile.write(html.encode())
+        try:
+            self.wfile.write(html.encode())
+        except BrokenPipeError:
+            pass
 
     def log_message(self, format, *args):
         return  # silence logs HTTP par défaut

@@ -4,6 +4,8 @@ import time
 import pwd
 import grp
 import json
+import fcntl
+import termios
 from process.manager import ProcessManager
 from utils.enums import ProcessState
 from bonus.logger import log
@@ -60,6 +62,7 @@ class ManagerWrapper:
                 if pid == 0:
                     try:
                         os.setsid()
+                        fcntl.ioctl(slave_fd, termios.TIOCSCTTY, 0)
                         os.dup2(slave_fd, 0)
                         os.dup2(slave_fd, 1)
                         os.dup2(slave_fd, 2)

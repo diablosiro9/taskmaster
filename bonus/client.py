@@ -21,10 +21,13 @@ def interactive_mode(sock):
                 sock.sendall(data)
 
             if sock in rlist:
-                data = sock.recv(1024)
-                if not data:
+                try:
+                    data = sock.recv(1024)
+                    if not data:
+                        break
+                    os.write(sys.stdout.fileno(), data)
+                except ConnectionResetError:
                     break
-                os.write(sys.stdout.fileno(), data)
     finally:
         termios.tcsetattr(sys.stdin.fileno(), termios.TCSADRAIN, old_settings)
 
@@ -36,6 +39,7 @@ def main():
     command = " ".join(sys.argv[1:])
 
     client = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+    client.settimeout(2)
     try:
         client.connect(SOCKET_PATH)
     except (FileNotFoundError, ConnectionRefusedError):
@@ -48,8 +52,13 @@ def main():
         interactive_mode(client)
         return
     client.sendall((command + "\n").encode())
-    response = client.recv(4096).decode()
-    print(response.strip())
+    try:
+        response = client.recv(4096).decode()
+        print(response.strip())
+    except socket.timeout:
+        print("ERR timeout: no response from daemon")
+    except ConnectionResetError:
+        print("Connection closed by daemon")
 
     client.close()
 

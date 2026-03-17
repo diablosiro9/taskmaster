@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CONFIG_FILE="school.yaml"
+CONFIG_FILE="example_config.yaml"
 
 start() {
     echo "🔹 Starting TaskMaster (mandatory foreground)..."

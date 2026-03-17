@@ -69,7 +69,7 @@ programs:
 
   shell:
     cmd: /bin/bash
-    user: imac21
+    user: diablo
     numprocs: 1
     autostart: true
     autorestart: always

@@ -211,3 +211,30 @@
 {"timestamp": "2026-03-13 16:15:42", "event": "process_stopped", "payload": {"program": "multi_proc", "pid": 8119}}
 {"timestamp": "2026-03-13 16:15:42", "event": "process_stopped", "payload": {"program": "multi_proc", "pid": 8121}}
 {"timestamp": "2026-03-13 16:15:42", "event": "process_stopped", "payload": {"program": "shell", "pid": 8123}}
+{"timestamp": "2026-03-17 12:52:15", "event": "daemon_started", "payload": {"pid": 7049}}
+{"timestamp": "2026-03-17 12:52:15", "event": "process_exited", "payload": {"program": "crash_loop", "pid": 7054}}
+{"timestamp": "2026-03-17 12:52:15", "event": "process_exited", "payload": {"program": "crash_loop", "pid": 7052}}
+{"timestamp": "2026-03-17 13:09:59", "event": "daemon_stopping", "payload": {"signal": 15}}
+{"timestamp": "2026-03-17 13:11:27", "event": "process_exited", "payload": {"program": "crash_loop", "pid": 7398}}
+{"timestamp": "2026-03-17 13:11:27", "event": "process_exited", "payload": {"program": "crash_loop", "pid": 7400}}
+{"timestamp": "2026-03-17 13:11:27", "event": "daemon_started", "payload": {"pid": 7395}}
+{"timestamp": "2026-03-17 18:29:26", "event": "daemon_stopping", "payload": {"signal": 15}}
+{"timestamp": "2026-03-17 18:29:30", "event": "process_stopped", "payload": {"program": "shell", "pid": 7405}}
+{"timestamp": "2026-03-17 18:29:36", "event": "daemon_started", "payload": {"pid": 12441}}
+{"timestamp": "2026-03-17 18:29:36", "event": "process_exited", "payload": {"program": "crash_loop", "pid": 12444}}
+{"timestamp": "2026-03-17 18:29:36", "event": "process_exited", "payload": {"program": "crash_loop", "pid": 12446}}
+{"timestamp": "2026-03-17 19:37:57", "event": "daemon_stopping", "payload": {"signal": 15}}
+{"timestamp": "2026-03-17 19:37:57", "event": "process_stopped", "payload": {"program": "shell", "pid": 12451}}
+{"timestamp": "2026-03-17 19:38:44", "event": "process_exited", "payload": {"program": "crash_loop", "pid": 14088}}
+{"timestamp": "2026-03-17 19:38:44", "event": "process_exited", "payload": {"program": "crash_loop", "pid": 14090}}
+{"timestamp": "2026-03-17 19:38:44", "event": "daemon_started", "payload": {"pid": 14085}}
+{"timestamp": "2026-03-17 19:41:43", "event": "daemon_stopping", "payload": {"signal": 15}}
+{"timestamp": "2026-03-17 19:41:43", "event": "process_stopped", "payload": {"program": "shell", "pid": 14095}}
+{"timestamp": "2026-03-17 19:57:13", "event": "process_exited", "payload": {"program": "crash_loop", "pid": 14878}}
+{"timestamp": "2026-03-17 19:57:13", "event": "process_exited", "payload": {"program": "crash_loop", "pid": 14876}}
+{"timestamp": "2026-03-17 19:57:13", "event": "daemon_started", "payload": {"pid": 14873}}
+{"timestamp": "2026-03-17 19:58:42", "event": "daemon_stopping", "payload": {"signal": 15}}
+{"timestamp": "2026-03-17 19:58:42", "event": "process_stopped", "payload": {"program": "shell", "pid": 14883}}
+{"timestamp": "2026-03-17 20:02:00", "event": "daemon_started", "payload": {"pid": 15012}}
+{"timestamp": "2026-03-17 20:02:00", "event": "process_exited", "payload": {"program": "crash_loop", "pid": 15017}}
+{"timestamp": "2026-03-17 20:02:00", "event": "process_exited", "payload": {"program": "crash_loop", "pid": 15015}}
