@@ -2,7 +2,7 @@ programs:
 
   fast_ok:
     cmd: "bash -c 'echo FAST_OK_START; sleep 10; exit 0'"
-    user: testlow
+    user: imac21
     numprocs: 1
     autostart: true
     autorestart: never
@@ -11,10 +11,11 @@ programs:
     startsecs: 1
     startretries: 1
     exitcodes: [0]
+    attachable: true
 
   slow_start:
     cmd: "bash -c 'echo SLOW_START; sleep 6; exit 0'"
-    user: testlow
+    user: imac21
     numprocs: 1
     autostart: true
     autorestart: always
@@ -23,10 +24,12 @@ programs:
     startsecs: 5
     startretries: 2
     exitcodes: [0]
+    attachable: true
+
 
   crash_loop:
     cmd: "bash -c 'echo CRASHING; sleep 1; exit 1'"
-    user: testlow
+    user: imac21
     numprocs: 2
     autostart: true
     autorestart: always
@@ -38,7 +41,7 @@ programs:
 
   manual_only:
     cmd: "bash -c 'echo MANUAL_ONLY; sleep 20; exit 0'"
-    user: testlow
+    user: imac21
     numprocs: 1
     autostart: false
     autorestart: never
@@ -47,10 +50,12 @@ programs:
     startsecs: 1
     startretries: 0
     exitcodes: [0]
+    attachable: true
+
 
   multi_proc:
     cmd: "bash -c 'echo MULTI_PROC $$; sleep 15; exit 0'"
-    user: testlow
+    user: imac21
     numprocs: 3
     autostart: true
     autorestart: unexpected
@@ -59,6 +64,21 @@ programs:
     startsecs: 2
     startretries: 1
     exitcodes: [0]
+    attachable: true
+
+
+  shell:
+    cmd: /bin/bash
+    user: imac21
+    numprocs: 1
+    autostart: true
+    autorestart: always
+    stdout: "/tmp/shell.out"
+    stderr: "/tmp/shell.err"
+    startsecs: 1
+    startretries: 0
+    exitcodes: [0]
+    attachable: true
 
 # programs:
 #   sleep_test:

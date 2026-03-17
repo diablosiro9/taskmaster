@@ -4,8 +4,8 @@ class ProgramConfig:
     def __init__(
         self,
         name: str,
-        user: str,
         cmd: str,
+        user: Optional[str] = None,
         numprocs: int = 1,
         autostart: bool = False,
         autorestart: str = "never",
@@ -19,10 +19,11 @@ class ProgramConfig:
         env: Optional[Dict[str, str]] = None,
         workingdir: Optional[str] = None,
         umask: Optional[int] = None,
+        attachable: Optional[bool] = False,
     ):
         self.name = name
-        self.user = user
         self.cmd = cmd
+        self.user = user
         self.numprocs = numprocs
         self.autostart = autostart
         self.autorestart = autorestart
@@ -36,3 +37,4 @@ class ProgramConfig:
         self.env = env or {}
         self.workingdir = workingdir
         self.umask = umask
+        self.attachable = attachable

@@ -172,3 +172,42 @@
 {"timestamp": "2026-02-26 15:25:03", "event": "process_exited", "payload": {"program": "multi_proc", "pid": 73957}}
 {"timestamp": "2026-02-26 15:25:03", "event": "process_exited", "payload": {"program": "multi_proc", "pid": 73959}}
 {"timestamp": "2026-02-26 15:25:09", "event": "daemon_stopping", "payload": {"signal": 15}}
+{"timestamp": "2026-03-13 15:28:09", "event": "daemon_started", "payload": {"pid": 7511}}
+{"timestamp": "2026-03-13 15:28:09", "event": "process_exited", "payload": {"program": "slow_start", "pid": 7513}}
+{"timestamp": "2026-03-13 15:28:09", "event": "process_exited", "payload": {"program": "multi_proc", "pid": 7518}}
+{"timestamp": "2026-03-13 15:28:09", "event": "process_exited", "payload": {"program": "fast_ok", "pid": 7512}}
+{"timestamp": "2026-03-13 15:28:09", "event": "process_exited", "payload": {"program": "multi_proc", "pid": 7517}}
+{"timestamp": "2026-03-13 15:28:09", "event": "process_exited", "payload": {"program": "multi_proc", "pid": 7516}}
+{"timestamp": "2026-03-13 15:28:09", "event": "process_exited", "payload": {"program": "crash_loop", "pid": 7514}}
+{"timestamp": "2026-03-13 15:28:09", "event": "process_exited", "payload": {"program": "crash_loop", "pid": 7515}}
+{"timestamp": "2026-03-13 15:28:45", "event": "process_exited", "payload": {"program": "manual_only", "pid": 7576}}
+{"timestamp": "2026-03-13 15:28:52", "event": "process_exited", "payload": {"program": "manual_only", "pid": 7613}}
+{"timestamp": "2026-03-13 15:41:07", "event": "daemon_stopping", "payload": {"signal": 15}}
+{"timestamp": "2026-03-13 15:41:12", "event": "daemon_started", "payload": {"pid": 7760}}
+{"timestamp": "2026-03-13 15:41:13", "event": "process_exited", "payload": {"program": "crash_loop", "pid": 7763}}
+{"timestamp": "2026-03-13 15:41:13", "event": "process_exited", "payload": {"program": "crash_loop", "pid": 7764}}
+{"timestamp": "2026-03-13 15:41:18", "event": "process_exited", "payload": {"program": "slow_start", "pid": 7762}}
+{"timestamp": "2026-03-13 15:41:22", "event": "process_exited", "payload": {"program": "fast_ok", "pid": 7761}}
+{"timestamp": "2026-03-13 15:41:27", "event": "process_exited", "payload": {"program": "multi_proc", "pid": 7765}}
+{"timestamp": "2026-03-13 15:41:27", "event": "process_exited", "payload": {"program": "multi_proc", "pid": 7767}}
+{"timestamp": "2026-03-13 15:41:27", "event": "process_exited", "payload": {"program": "multi_proc", "pid": 7769}}
+{"timestamp": "2026-03-13 15:41:51", "event": "daemon_stopping", "payload": {"signal": 15}}
+{"timestamp": "2026-03-13 15:43:29", "event": "daemon_started", "payload": {"pid": 7902}}
+{"timestamp": "2026-03-13 15:43:30", "event": "process_exited", "payload": {"program": "crash_loop", "pid": 7906}}
+{"timestamp": "2026-03-13 15:43:30", "event": "process_exited", "payload": {"program": "crash_loop", "pid": 7905}}
+{"timestamp": "2026-03-13 16:14:20", "event": "daemon_stopping", "payload": {"signal": 15}}
+{"timestamp": "2026-03-13 16:14:20", "event": "process_stopped", "payload": {"program": "fast_ok", "pid": 7903}}
+{"timestamp": "2026-03-13 16:14:20", "event": "process_stopped", "payload": {"program": "slow_start", "pid": 7904}}
+{"timestamp": "2026-03-13 16:14:20", "event": "process_stopped", "payload": {"program": "multi_proc", "pid": 7907}}
+{"timestamp": "2026-03-13 16:14:20", "event": "process_stopped", "payload": {"program": "multi_proc", "pid": 7908}}
+{"timestamp": "2026-03-13 16:14:20", "event": "process_stopped", "payload": {"program": "multi_proc", "pid": 7911}}
+{"timestamp": "2026-03-13 16:14:23", "event": "daemon_started", "payload": {"pid": 8113}}
+{"timestamp": "2026-03-13 16:14:24", "event": "process_exited", "payload": {"program": "crash_loop", "pid": 8116}}
+{"timestamp": "2026-03-13 16:14:24", "event": "process_exited", "payload": {"program": "crash_loop", "pid": 8117}}
+{"timestamp": "2026-03-13 16:15:42", "event": "daemon_stopping", "payload": {"signal": 15}}
+{"timestamp": "2026-03-13 16:15:42", "event": "process_stopped", "payload": {"program": "fast_ok", "pid": 8114}}
+{"timestamp": "2026-03-13 16:15:42", "event": "process_stopped", "payload": {"program": "slow_start", "pid": 8115}}
+{"timestamp": "2026-03-13 16:15:42", "event": "process_stopped", "payload": {"program": "multi_proc", "pid": 8118}}
+{"timestamp": "2026-03-13 16:15:42", "event": "process_stopped", "payload": {"program": "multi_proc", "pid": 8119}}
+{"timestamp": "2026-03-13 16:15:42", "event": "process_stopped", "payload": {"program": "multi_proc", "pid": 8121}}
+{"timestamp": "2026-03-13 16:15:42", "event": "process_stopped", "payload": {"program": "shell", "pid": 8123}}

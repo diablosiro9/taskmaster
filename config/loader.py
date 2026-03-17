@@ -15,8 +15,8 @@ class ConfigLoader:
         for name, cfg in data.get("programs", {}).items():
             program_cfg = ProgramConfig(
                 name=name,
-                user=cfg["user"],
                 cmd=cfg["cmd"],
+                user=cfg.get("user"),
                 numprocs=cfg.get("numprocs", 1),
                 autostart=cfg.get("autostart", False),
                 autorestart=cfg.get("autorestart", "never"),
@@ -30,6 +30,7 @@ class ConfigLoader:
                 env=cfg.get("env"),
                 workingdir=cfg.get("workingdir"),
                 umask=self._parse_umask(cfg.get("umask")),
+                attachable=cfg.get("attachable", False)
             )
             programs.append(Program(program_cfg))
 

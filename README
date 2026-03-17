@@ -306,6 +306,9 @@ Même sans autostart :
 # Alerts are written to:
 
 /*
+
+TaskMaster git:(master) ✗ python3 bonus/webhook_browser.py
+&&
 skMaster git:(master) ✗ ./bonus/run_taskmaster_bonus.sh start
 🔹 Starting TaskMaster daemon...
 [TaskMaster] Daemon started (PID=73579)

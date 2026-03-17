@@ -8,6 +8,7 @@ from process.manager import ProcessManager
 from utils.enums import ProcessState
 from bonus.logger import log
 from bonus.webhook import send_webhook
+from bonus.pty_manager import PTYManager
 
 ALERT_FILE = os.path.join(os.path.dirname(__file__), "logs/alerts.log")
 os.makedirs(os.path.dirname(ALERT_FILE), exist_ok=True)
@@ -19,6 +20,7 @@ class ManagerWrapper:
         self._child_threads = {}  # pid -> thread pour logs stdout/stderr
         self._exited_pids = set()
         self.is_daemon = is_daemon
+        self.pty_manager = PTYManager()
 
     def log(self, message, level="INFO"):
         log(message, level, is_daemon=self.is_daemon)
@@ -41,13 +43,47 @@ class ManagerWrapper:
         if name in self.disabled_programs:
             self.log(f"Program '{name}' is disabled, not starting")
             return
-        self.disabled_programs.discard(name)
+
         program = self.manager.programs.get(name)
         if not program:
             self.log(f"Program '{name}' not found")
             return
+
         for inst in program.processes:
-            if inst.state == ProcessState.STOPPED:
+            if inst.state != ProcessState.STOPPED:
+                continue
+
+            if program.config.attachable:
+                master_fd, slave_fd = self.pty_manager.create_pty()
+                pid = os.fork()
+
+                if pid == 0:
+                    try:
+                        os.setsid()
+                        os.dup2(slave_fd, 0)
+                        os.dup2(slave_fd, 1)
+                        os.dup2(slave_fd, 2)
+                        os.close(master_fd)
+                        os.close(slave_fd)
+
+                        if program.config.user:
+                            pw = pwd.getpwnam(program.config.user)
+                            os.setgid(pw.pw_gid)
+                            os.setuid(pw.pw_uid)
+
+                        os.execv("/bin/sh", ["sh", "-c", program.config.cmd])
+                    except Exception as e:
+                        print(f"PTY exec failed: {e}", flush=True)
+                        os._exit(1)
+                else:
+                    os.close(slave_fd)
+                    inst.mark_started(pid)
+                    inst.pty_master_fd = master_fd
+                    inst.is_attachable = True
+                    self.pty_manager.register(pid, master_fd)
+                    self.log(f"[Daemon] Started attachable '{name}' pid={pid}")
+            else:
+                # 👇 ancien comportement pipe
                 r, w = os.pipe()
                 pid = os.fork()
                 if pid == 0:
@@ -56,17 +92,15 @@ class ManagerWrapper:
                         os.dup2(w, 2)
                         os.close(r)
                         os.close(w)
-                        if program.config.workingdir:
-                            os.chdir(program.config.workingdir)
-                        if program.config.umask is not None:
-                            os.umask(program.config.umask)
-                        if program.config.user:
-                            pw_record = pwd.getpwnam(program.config.user)
-                            uid = pw_record.pw_uid
-                            gid = pw_record.pw_gid
 
-                            os.setgid(gid)
-                            os.setuid(uid)
+                        if program.config.user:
+                            try:
+                                pw = pwd.getpwnam(program.config.user)
+                                os.setgid(pw.pw_gid)
+                                os.setuid(pw.pw_uid)
+                            except KeyError:
+                                self.log(f"User '{program.config.user}' not found", level="ERROR")
+                                os._exit(1)
                         os.execv("/bin/sh", ["sh", "-c", program.config.cmd])
                     except Exception as e:
                         print(f"Failed to exec {program.config.cmd}: {e}", flush=True)
@@ -75,10 +109,8 @@ class ManagerWrapper:
                     os.close(w)
                     inst.mark_started(pid)
                     self.log(f"[Daemon] Started '{name}' with pid {pid}")
-                    self.send_alert("process_started", {"program": name, "pid": pid})
                     t = threading.Thread(target=self._tail_child, args=(pid, r, name), daemon=True)
                     t.start()
-                    self._child_threads[pid] = t
 
     def _tail_child(self, pid, fd, prog_name):
         seen = set()

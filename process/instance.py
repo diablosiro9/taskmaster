@@ -10,6 +10,9 @@ class ProcessInstance:
         self.start_time = None      # timestamp du fork
         self.retry_count = 0        # nombre de tentatives de start
         self.stop_reason = None
+        self.pty_master_fd = None
+        self.is_attachable = False
+        self.is_attached = False
 
     def mark_started(self, pid):
         self.pid = pid

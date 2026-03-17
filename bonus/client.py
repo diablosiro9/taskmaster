@@ -1,7 +1,32 @@
 import socket
 import sys
+import tty
+import termios
+import sys
+import os
+import select
 
 SOCKET_PATH = "/tmp/taskmaster.sock"
+def interactive_mode(sock):
+    old_settings = termios.tcgetattr(sys.stdin.fileno())
+    try:
+        tty.setraw(sys.stdin.fileno())
+        while True:
+            rlist, _, _ = select.select([sys.stdin, sock], [], [])
+
+            if sys.stdin in rlist:
+                data = os.read(sys.stdin.fileno(), 1024)
+                if not data:
+                    break
+                sock.sendall(data)
+
+            if sock in rlist:
+                data = sock.recv(1024)
+                if not data:
+                    break
+                os.write(sys.stdout.fileno(), data)
+    finally:
+        termios.tcsetattr(sys.stdin.fileno(), termios.TCSADRAIN, old_settings)
 
 def main():
     if len(sys.argv) < 2:
@@ -17,6 +42,11 @@ def main():
         print("ERR daemon not running or socket closed")
         sys.exit(1)
 
+    if command.startswith("attach"):
+        program = command.split()[1]
+        client.sendall(f"attach {program}\n".encode())
+        interactive_mode(client)
+        return
     client.sendall((command + "\n").encode())
     response = client.recv(4096).decode()
     print(response.strip())

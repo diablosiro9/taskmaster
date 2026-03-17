@@ -25,22 +25,51 @@ class SocketServer(threading.Thread):
         while self.running:
             try:
                 conn, _ = self.server.accept()
-                with conn:
-                    data = conn.recv(1024)
-                    if not data:
+
+                data = conn.recv(1024)
+                if not data:
+                    conn.close()
+                    continue
+
+                command = data.decode().strip()
+                log(f"[Socket] Command received: {command}")
+
+                # --- ATTACH ---
+                if command.startswith("attach"):
+                    parts = command.split()
+                    if len(parts) != 2:
+                        conn.sendall(b"ERR usage: attach <program>\n")
+                        conn.close()
                         continue
 
-                    command = data.decode().strip()
-                    log(f"[Socket] Command received: {command}")
+                    prog_name = parts[1]
+                    program = self.manager.programs.get(prog_name)
 
-                    response = handle_command(self.manager, command)
+                    if not program:
+                        conn.sendall(b"Program not found\n")
+                        conn.close()
+                        continue
 
-                    conn.sendall((response + "\n").encode())
-                    if command.strip() == "shutdown":
-                        log("[Socket] Shutdown requested")
-                        self.running = False
-                        self.cleanup()
-                        os._exit(0)
+                    for inst in program.processes:
+                        if inst.state.name == "RUNNING" and getattr(inst, "is_attachable", False):
+                            self.manager.pty_manager.attach(inst.pid, conn)
+                            return
+
+                    conn.sendall(b"No running attachable instance\n")
+                    conn.close()
+                    continue
+
+                # --- COMMANDES NORMALES ---
+                response = handle_command(self.manager, command)
+                conn.sendall((response + "\n").encode())
+
+                if command.strip() == "shutdown":
+                    log("[Socket] Shutdown requested")
+                    self.running = False
+                    self.cleanup()
+                    os._exit(0)
+
+                conn.close()
 
             except Exception as e:
                 log(f"[Socket] Error: {e}", level="ERROR")
